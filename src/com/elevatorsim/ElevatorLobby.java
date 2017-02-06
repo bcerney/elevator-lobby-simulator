@@ -37,7 +37,7 @@ public class ElevatorLobby {
 				"# of Floors = " + numberOfFloors + newline +
 				"Elevator Max Weight: " + maxWeightPerElevator + " lbs." + newline +
 				"Elevator Max Riders: " + maxRidersPerElevator + newline +
-				"Total Elevator Delivery Time: " + lobbyTimer.getTotalMinutes() + " minutes" + newline;
+				lobbyTimer.toString() + newline;
 	}
 	
 	public List<Elevator> getElevators() {
@@ -125,13 +125,24 @@ public class ElevatorLobby {
 	}
 	
 	public void deliverRidersAllElevators() {
+		Timer slowestElevator = new Timer();
+		
 		for (Elevator elevator : elevators) {
 			Timer totalDeliveryTime = elevator.fullElevatorDeliverRiders();
-			lobbyTimer.addMinutesFromTimer(totalDeliveryTime);
-			System.out.println("Elevator " + elevator.getShaftNumber() + " has returned.");
-			System.out.println(lobbyTimer);
+			
+			if (totalDeliveryTime.getTotalMinutes() > slowestElevator.getTotalMinutes()) {
+				slowestElevator = totalDeliveryTime;
+				System.out.println("Elevator " + elevator.getShaftNumber() + " has returned.");
+			}
 		}
 		
+		lobbyTimer.addMinutesFromTimer(slowestElevator);
+		System.out.println(lobbyTimer);
+		
+		if (isRidersInQueue()) {
+			fillElevators();
+			deliverRidersAllElevators();
+		}
 	}
 	
 	public boolean isRidersInQueue() {

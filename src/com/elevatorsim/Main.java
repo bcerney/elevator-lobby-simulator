@@ -3,13 +3,12 @@ package com.elevatorsim;
 public class Main {
 
 	public static void main (String[] args) {
-		
-		ElevatorLobby lobby = new ElevatorLobby(200, 150, 1600, 10);
+		Stopwatch stopwatch = new Stopwatch();
+		ElevatorLobby lobby = new ElevatorLobby(1000, 100, 1600, 10);
 		
 		System.out.println(lobby);
-		lobby.printElevators();
 		
-		lobby.generateRiders(15000);
+		lobby.generateRiders(1500000);
 		lobby.printRiders();
 		
 		
@@ -19,6 +18,8 @@ public class Main {
 		lobby.deliverRidersAllElevators();
 		
 		System.out.println(lobby);
+		
+		System.out.println("Total runtime: " + stopwatch.elapsedTime() + " seconds");
 	}
 	
 }

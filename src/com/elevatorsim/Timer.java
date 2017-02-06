@@ -9,11 +9,19 @@ public class Timer {
 	
 	@Override
 	public String toString() {
+		if (totalMinutes > 59) {
+			return "Delivery Time in Hours: " + totalMinutesToHours();
+		}
 		return "Total Minutes: " + totalMinutes;
 	}
 	
 	public int getTotalMinutes() {
 		return totalMinutes;
+	}
+	
+	public int totalMinutesToHours() {
+		double minutesToHours = (double) totalMinutes / 60;
+		return (int) minutesToHours;
 	}
 	
 	public void addMinutes(int minutes) {

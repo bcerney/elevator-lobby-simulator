@@ -118,6 +118,7 @@ public class Elevator {
 	
 	public Timer fullElevatorDeliverRiders() {
 		Iterator<Rider> iterator = currentRiders.iterator();
+		Timer returnTimer = new Timer();
 
 		while (iterator.hasNext()) {
 			Rider rider = iterator.next();
@@ -130,13 +131,16 @@ public class Elevator {
 		System.out.println("All riders delivered. Returned to ground floor...");
 		goDown(1);
 		System.out.println(timer);
-		return timer;
+		returnTimer.addMinutesFromTimer(timer);
+		timer.reset();
+		
+		return returnTimer;
 	}
 
 	public boolean goUp(int desiredFloor) {
 		if (desiredFloor > currentFloor && 
 			desiredFloor <= numberOfFloors) {
-			timer.addMinutes(desiredFloor - currentFloor);
+			addDeliveryTime(desiredFloor);
 			currentFloor = desiredFloor;
 			return true;
 		} else {
@@ -147,11 +151,16 @@ public class Elevator {
 	public boolean goDown(int desiredFloor) {
 		if (desiredFloor < currentFloor && 
 			desiredFloor > 0) {
-			timer.addMinutes(currentFloor - desiredFloor);
+			addDeliveryTime(desiredFloor);
 			currentFloor = desiredFloor;
 			return true;
 		}
 
 		return false;
+	}
+	
+	public void addDeliveryTime(int desiredFloor) {
+		double travelTime = (double) (Math.abs(desiredFloor - currentFloor)) / 10;
+		timer.addMinutes((int) travelTime);
 	}
 }

@@ -4,11 +4,11 @@ public class Main {
 
 	public static void main (String[] args) {
 		Stopwatch stopwatch = new Stopwatch();
-		ElevatorLobby lobby = new ElevatorLobby(1000, 100, 1600, 10);
+		ElevatorLobby lobby = new ElevatorLobby(20, 100, 1600, 10);
 		
 		System.out.println(lobby);
 		
-		lobby.generateRiders(1500000);
+		lobby.generateRiders(150000);
 		lobby.printRiders();
 		
 		
